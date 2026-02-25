@@ -9,7 +9,6 @@ class Solution {
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
                     swapped = 1;
-                    System.out.println("hii");
                 }
                 else if((Integer.bitCount(arr[j])) == (Integer.bitCount(arr[j+1])) && arr[j]>=arr[j+1]){
                     int temp = arr[j];
