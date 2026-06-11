@@ -1,0 +1,56 @@
+class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int assignEdgeWeights(int[][] edges) {
+        int n = edges.length+1;
+
+        List<Integer>[] graph = new ArrayList[n+1];
+        for(int i = 0; i<=n; i++){
+            graph[i] = new ArrayList<>();
+        }
+
+        for(int[] e:edges){
+            int u = e[0];
+            int v = e[1];
+            graph[u].add(v);
+            graph[v].add(u);
+        }
+
+        Queue<Integer> q = new ArrayDeque<>();
+        q.offer(1);
+
+        boolean[] visited = new boolean[n+1];
+        visited[1]= true;
+
+        int levels = 0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            
+            while(size-->0){
+                int u = q.poll();
+                for(int v:graph[u]){
+                    if(!visited[v]){
+                        visited[v] = true;
+                        q.offer(v   );
+                    }
+                }
+            }
+            levels++;
+        }
+
+        return (int) modPow(2,levels-2);
+    }
+
+    private long modPow(long base, long exp){
+        long ans  =1 ;
+        while(exp>0){
+            if((exp&1)==1){
+                ans = ans * base % MOD;
+            }
+
+            base = base * base %MOD;
+            exp>>=1;
+        }
+        return ans;
+    }
+}
